@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz | Meister-AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808; --bg-2: #111111; --bg-3: #1a1a1a;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0f0f0; --text-muted: #888;
+      --accent: #6c63ff; --accent-2: #a78bfa;
+      --gradient: linear-gradient(135deg, #6c63ff, #a78bfa);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6%;
+      background: rgba(8,8,8,0.8); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; color: var(--text); }
+    .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-back { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 8rem 2rem 6rem;
+    }
+
+    .page-label {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent-2); margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: 2.5rem; font-weight: 700;
+      letter-spacing: -1px; margin-bottom: 3rem; line-height: 1.2;
+    }
+    .section { margin-bottom: 2.5rem; }
+    h2 {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--accent-2); margin-bottom: 0.6rem;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    h3 { font-size: 0.95rem; font-weight: 600; margin: 1.2rem 0 0.4rem; color: var(--text); }
+    p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.6rem; }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    footer {
+      background: var(--bg-2); border-top: 1px solid var(--border);
+      padding: 2rem 6%; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Meister<span>-AI</span></a>
+  <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+</nav>
+
+<div class="page-content">
+  <div class="page-label">Rechtliches</div>
+  <h1>Datenschutzerklärung</h1>
+
+  <div class="section">
+    <h2>1. Verantwortlicher</h2>
+    <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+    <p>Emine Er · Meister-AI<br />
+    (Neue Geschäftsadresse)<br />
+    Telefon: <a href="tel:+491711570350">+49 171 1570350</a><br />
+    E-Mail: <a href="mailto:emine@meister-ai.de">emine@meister-ai.de</a></p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>2. Ihre Rechte</h2>
+    <p>Sie haben jederzeit das Recht auf:</p>
+    <p>— Auskunft über Ihre gespeicherten Daten (Art. 15 DSGVO)<br />
+    — Berichtigung unrichtiger Daten (Art. 16 DSGVO)<br />
+    — Löschung Ihrer Daten (Art. 17 DSGVO)<br />
+    — Einschränkung der Verarbeitung (Art. 18 DSGVO)<br />
+    — Datenübertragbarkeit (Art. 20 DSGVO)<br />
+    — Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</p>
+    <p style="margin-top:0.6rem;">Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:emine@meister-ai.de">emine@meister-ai.de</a></p>
+    <p>Sie haben zudem das Recht, sich bei der zuständigen Datenschutzaufsichtsbehörde zu beschweren.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>3. Datenerfassung auf dieser Website</h2>
+
+    <h3>Hosting (Netlify)</h3>
+    <p>Diese Website wird bei Netlify Inc., 44 Montgomery Street, Suite 300, San Francisco, CA 94104, USA gehostet. Netlify erfasst automatisch technische Zugriffsdaten (IP-Adresse, Browsertyp, Betriebssystem, Zugriffszeitpunkt). Dies erfolgt auf Basis von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb der Website). Weitere Informationen: <a href="https://www.netlify.com/privacy/" target="_blank">netlify.com/privacy</a></p>
+
+    <h3>Google Fonts</h3>
+    <p>Diese Website verwendet Google Fonts (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Beim Aufruf der Seite wird eine Verbindung zu Google-Servern hergestellt, dabei wird Ihre IP-Adresse übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
+
+    <h3>Kontaktformular</h3>
+    <p>Wenn Sie uns über das Kontaktformular kontaktieren, werden Ihre eingegebenen Daten (Name, E-Mail, Nachricht) zur Bearbeitung Ihrer Anfrage bei uns gespeichert. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Ihre Daten werden nicht an Dritte weitergegeben und nach vollständiger Bearbeitung Ihrer Anfrage gelöscht.</p>
+
+    <h3>Kontaktaufnahme per E-Mail oder Telefon</h3>
+    <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, werden Ihre Angaben zur Bearbeitung Ihrer Anfrage gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO. Die Daten werden gelöscht, sobald Ihre Anfrage vollständig bearbeitet wurde und keine weiteren Aufbewahrungspflichten bestehen.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>4. Cookies</h2>
+    <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden ausschließlich technisch notwendige Funktionen eingesetzt, die keiner Einwilligung bedürfen.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>5. Keine Weitergabe an Dritte</h2>
+    <p>Wir geben Ihre personenbezogenen Daten nicht ohne Ihre ausdrückliche Einwilligung an Dritte weiter, sofern dies nicht zur Vertragserfüllung erforderlich ist oder wir gesetzlich dazu verpflichtet sind.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>6. Datensicherheit</h2>
+    <p>Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section">
+    <h2>7. Aktualität dieser Datenschutzerklärung</h2>
+    <p>Diese Datenschutzerklärung ist aktuell gültig und hat den Stand: April 2026.</p>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="logo" style="font-size:1rem;">Meister<span style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">-AI</span></a>
+  <p>© 2026 Meister-AI. Alle Rechte vorbehalten.</p>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+</body>
+</html>
