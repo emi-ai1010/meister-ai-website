@@ -7,7 +7,7 @@
   <meta name="description" content="Meister-AI hilft Unternehmen bei der Digitalisierung mit Chatbots, Automatisierung, n8n-Workflows und Voice Agents." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,17 +20,25 @@
       --text-muted: #888;
       --accent: #6c63ff;
       --accent-2: #a78bfa;
-      --gradient: linear-gradient(135deg, #6c63ff, #a78bfa);
+      --accent-3: #f472b6;
+      --gradient: linear-gradient(135deg, #6c63ff, #a78bfa 55%, #f472b6);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .logo, .stat-num, .step-num { font-family: 'Sora', sans-serif; }
+
+    .ico {
+      width: 1em; height: 1em;
+      fill: none; stroke: currentColor;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
     }
 
     /* ─── NAV ─── */
@@ -66,14 +74,35 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
+    .hero > *:not(.hero-bg) { position: relative; z-index: 1; }
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .hero-bg::before {
       content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    }
+    .blob {
       position: absolute;
-      top: -30%; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
-      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .blob.b1 { width: 520px; height: 520px; background: #6c63ff; top: -12%; left: 8%; }
+    .blob.b2 { width: 440px; height: 440px; background: #f472b6; top: 20%; right: 4%; opacity: 0.3; animation-duration: 22s; animation-delay: -6s; }
+    .blob.b3 { width: 380px; height: 380px; background: #a78bfa; bottom: -10%; left: 35%; opacity: 0.3; animation-duration: 26s; animation-delay: -12s; }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.1); }
+      100% { transform: translate(-40px, 70px) scale(0.95); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .blob, .tools-track { animation: none; }
     }
     .hero-badge {
       display: inline-flex;
@@ -100,9 +129,9 @@
     }
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.1;
-      letter-spacing: -2px;
+      letter-spacing: -2.5px;
       margin-bottom: 1.5rem;
       max-width: 900px;
     }
@@ -208,7 +237,7 @@
       transition: color 0.2s, border-color 0.2s;
     }
     .tool-pill:hover { color: var(--text); border-color: rgba(108,99,255,0.3); }
-    .tool-pill .tool-icon { font-size: 1.1rem; }
+    .tool-pill img { width: 20px; height: 20px; display: block; }
 
     /* ─── SECTION BASE ─── */
     section { padding: 6rem 6%; }
@@ -275,6 +304,7 @@
       font-size: 1.1rem;
       flex-shrink: 0;
     }
+    .wf-node-icon img { width: 20px; height: 20px; }
     .wf-node-icon.purple { background: rgba(108,99,255,0.15); }
     .wf-node-icon.blue { background: rgba(59,130,246,0.15); }
     .wf-node-icon.green { background: rgba(34,197,94,0.12); }
@@ -339,7 +369,14 @@
 
     /* ─── SERVICES ─── */
     #leistungen { background: var(--bg-2); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 1.5rem; }
+    .service-card.service-cta {
+      display: flex; flex-direction: column; justify-content: center;
+      text-decoration: none; color: var(--text);
+      background: linear-gradient(135deg, rgba(108,99,255,0.18), rgba(244,114,182,0.12));
+      border-color: rgba(167,139,250,0.3);
+    }
+    .service-cta .cta-arrow { margin-top: 1.2rem; font-weight: 600; color: var(--accent-2); }
     .service-card {
       background: var(--bg-3);
       border: 1px solid var(--border);
@@ -353,9 +390,20 @@
       top: 0; left: 0; right: 0; height: 2px;
       background: var(--gradient); opacity: 0; transition: opacity 0.3s;
     }
+    .service-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(167,139,250,0.12), transparent 45%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
     .service-card:hover { border-color: rgba(108,99,255,0.3); transform: translateY(-4px); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .service-card:hover::before, .service-card:hover::after { opacity: 1; }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #fff; margin-bottom: 1.2rem;
+      background: var(--gradient);
+      box-shadow: 0 8px 24px rgba(108,99,255,0.3);
+    }
     .service-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
     .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 
@@ -368,7 +416,8 @@
       width: 40px; height: 40px;
       background: var(--bg-3); border: 1px solid var(--border);
       border-radius: 10px; display: flex; align-items: center;
-      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+      justify-content: center; font-size: 1.15rem; flex-shrink: 0;
+      color: var(--accent-2);
     }
     .why-text h4 { font-weight: 600; margin-bottom: 0.2rem; font-size: 0.95rem; }
     .why-text p { font-size: 0.875rem; color: var(--text-muted); }
@@ -415,9 +464,10 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem; flex-shrink: 0;
     }
-    .icon-phone { background: rgba(108,99,255,0.15); }
+    .contact-card-icon img { width: 22px; height: 22px; }
+    .icon-phone { background: rgba(108,99,255,0.15); color: var(--accent-2); }
     .icon-whatsapp { background: rgba(37,211,102,0.12); }
-    .icon-email { background: rgba(167,139,250,0.12); }
+    .icon-email { background: rgba(244,114,182,0.12); color: var(--accent-3); }
     .contact-card-text span {
       display: block; font-size: 0.75rem; color: var(--text-muted);
       margin-bottom: 0.1rem; text-transform: uppercase; letter-spacing: 0.5px;
@@ -462,7 +512,7 @@
       border: none;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.5rem; color: #fff;
       box-shadow: 0 4px 20px rgba(108,99,255,0.4);
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -496,7 +546,7 @@
       background: var(--gradient);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem; color: #fff;
     }
     .chat-header-info strong { display: block; font-size: 0.9rem; }
     .chat-header-info span { font-size: 0.75rem; color: #4ade80; }
@@ -615,6 +665,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
   <div class="hero-badge"><span class="dot"></span> KI-Agentur aus Deutschland</div>
   <h1>Ihr Unternehmen.<br /><span class="typewriter-wrap" id="typewriter"></span><span class="cursor"></span></h1>
   <p>Wir helfen Unternehmen dabei, mit moderner KI-Technologie Zeit zu sparen, Prozesse zu automatisieren und effizienter zu wachsen.</p>
@@ -629,31 +680,31 @@
   <div class="tools-bar-label">Wir arbeiten mit modernsten Tools</div>
   <div class="tools-track-wrapper">
     <div class="tools-track" id="toolsTrack">
-      <div class="tool-pill"><span class="tool-icon">🔗</span> n8n</div>
-      <div class="tool-pill"><span class="tool-icon">🤖</span> OpenAI</div>
-      <div class="tool-pill"><span class="tool-icon">⚡</span> Make</div>
-      <div class="tool-pill"><span class="tool-icon">💬</span> WhatsApp Business</div>
-      <div class="tool-pill"><span class="tool-icon">🎙️</span> ElevenLabs</div>
-      <div class="tool-pill"><span class="tool-icon">📊</span> HubSpot</div>
-      <div class="tool-pill"><span class="tool-icon">🔵</span> Telegram</div>
-      <div class="tool-pill"><span class="tool-icon">📧</span> Gmail API</div>
-      <div class="tool-pill"><span class="tool-icon">🗂️</span> Notion</div>
-      <div class="tool-pill"><span class="tool-icon">📅</span> Calendly</div>
-      <div class="tool-pill"><span class="tool-icon">🛒</span> Shopify</div>
-      <div class="tool-pill"><span class="tool-icon">🧠</span> Claude AI</div>
+      <div class="tool-pill"><img src="assets/tools/n8n.svg" alt="" width="20" height="20" loading="lazy" /> n8n</div>
+      <div class="tool-pill"><img src="assets/tools/openai.svg" alt="" width="20" height="20" loading="lazy" /> OpenAI</div>
+      <div class="tool-pill"><img src="assets/tools/make.svg" alt="" width="20" height="20" loading="lazy" /> Make</div>
+      <div class="tool-pill"><img src="assets/tools/whatsapp.svg" alt="" width="20" height="20" loading="lazy" /> WhatsApp Business</div>
+      <div class="tool-pill"><img src="assets/tools/elevenlabs.svg" alt="" width="20" height="20" loading="lazy" /> ElevenLabs</div>
+      <div class="tool-pill"><img src="assets/tools/hubspot.svg" alt="" width="20" height="20" loading="lazy" /> HubSpot</div>
+      <div class="tool-pill"><img src="assets/tools/telegram.svg" alt="" width="20" height="20" loading="lazy" /> Telegram</div>
+      <div class="tool-pill"><img src="assets/tools/gmail.svg" alt="" width="20" height="20" loading="lazy" /> Gmail API</div>
+      <div class="tool-pill"><img src="assets/tools/notion.svg" alt="" width="20" height="20" loading="lazy" /> Notion</div>
+      <div class="tool-pill"><img src="assets/tools/calendly.svg" alt="" width="20" height="20" loading="lazy" /> Calendly</div>
+      <div class="tool-pill"><img src="assets/tools/shopify.svg" alt="" width="20" height="20" loading="lazy" /> Shopify</div>
+      <div class="tool-pill"><img src="assets/tools/claude.svg" alt="" width="20" height="20" loading="lazy" /> Claude AI</div>
       <!-- Duplicate for seamless loop -->
-      <div class="tool-pill"><span class="tool-icon">🔗</span> n8n</div>
-      <div class="tool-pill"><span class="tool-icon">🤖</span> OpenAI</div>
-      <div class="tool-pill"><span class="tool-icon">⚡</span> Make</div>
-      <div class="tool-pill"><span class="tool-icon">💬</span> WhatsApp Business</div>
-      <div class="tool-pill"><span class="tool-icon">🎙️</span> ElevenLabs</div>
-      <div class="tool-pill"><span class="tool-icon">📊</span> HubSpot</div>
-      <div class="tool-pill"><span class="tool-icon">🔵</span> Telegram</div>
-      <div class="tool-pill"><span class="tool-icon">📧</span> Gmail API</div>
-      <div class="tool-pill"><span class="tool-icon">🗂️</span> Notion</div>
-      <div class="tool-pill"><span class="tool-icon">📅</span> Calendly</div>
-      <div class="tool-pill"><span class="tool-icon">🛒</span> Shopify</div>
-      <div class="tool-pill"><span class="tool-icon">🧠</span> Claude AI</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/n8n.svg" alt="" width="20" height="20" loading="lazy" /> n8n</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/openai.svg" alt="" width="20" height="20" loading="lazy" /> OpenAI</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/make.svg" alt="" width="20" height="20" loading="lazy" /> Make</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/whatsapp.svg" alt="" width="20" height="20" loading="lazy" /> WhatsApp Business</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/elevenlabs.svg" alt="" width="20" height="20" loading="lazy" /> ElevenLabs</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/hubspot.svg" alt="" width="20" height="20" loading="lazy" /> HubSpot</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/telegram.svg" alt="" width="20" height="20" loading="lazy" /> Telegram</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/gmail.svg" alt="" width="20" height="20" loading="lazy" /> Gmail API</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/notion.svg" alt="" width="20" height="20" loading="lazy" /> Notion</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/calendly.svg" alt="" width="20" height="20" loading="lazy" /> Calendly</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/shopify.svg" alt="" width="20" height="20" loading="lazy" /> Shopify</div>
+      <div class="tool-pill" aria-hidden="true"><img src="assets/tools/claude.svg" alt="" width="20" height="20" loading="lazy" /> Claude AI</div>
     </div>
   </div>
 </div>
@@ -663,34 +714,39 @@
   <div class="section-header fade-up">
     <div class="section-label">Leistungen</div>
     <h2 class="section-title">Was wir für Sie tun</h2>
-    <p class="section-sub">Von der Beratung bis zur fertigen Lösung — wir begleiten Sie auf dem Weg zur digitalen Transformation.</p>
+    <p class="section-sub">Von der Beratung bis zur fertigen Lösung: Wir begleiten Sie auf dem Weg zur digitalen Transformation.</p>
   </div>
   <div class="services-grid">
     <div class="service-card fade-up">
-      <div class="service-icon">🤖</div>
+      <div class="service-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="10" x="3" y="11" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M8 16h.01"/><path d="M16 16h.01"/></svg></div>
       <h3>Chatbots</h3>
-      <p>Intelligente Chatbots, die rund um die Uhr für Ihre Kunden da sind — auf der Website, in WhatsApp oder anderen Kanälen.</p>
+      <p>Intelligente Chatbots, die rund um die Uhr für Ihre Kunden da sind, ob auf der Website, in WhatsApp oder anderen Kanälen.</p>
     </div>
     <div class="service-card fade-up">
-      <div class="service-icon">⚡</div>
+      <div class="service-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <h3>Automatisierung</h3>
       <p>Repetitive Aufgaben gehören der Vergangenheit an. Wir automatisieren Ihre internen Prozesse und sparen wertvolle Arbeitszeit.</p>
     </div>
     <div class="service-card fade-up">
-      <div class="service-icon">🔗</div>
+      <div class="service-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></div>
       <h3>n8n Workflows</h3>
       <p>Verbinden Sie alle Ihre Tools und Systeme miteinander. Mit n8n bauen wir mächtige Workflows ohne Grenzen.</p>
     </div>
     <div class="service-card fade-up">
-      <div class="service-icon">🎙️</div>
+      <div class="service-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></div>
       <h3>Voice Agents</h3>
-      <p>KI-gestützte Sprachagenten, die Anrufe entgegennehmen, Termine buchen und Anfragen bearbeiten — vollautomatisch.</p>
+      <p>KI-gestützte Sprachagenten, die Anrufe entgegennehmen, Termine buchen und Anfragen bearbeiten. Vollautomatisch.</p>
     </div>
     <div class="service-card fade-up">
-      <div class="service-icon">💡</div>
+      <div class="service-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></div>
       <h3>KI-Beratung</h3>
       <p>Noch nicht sicher, wo KI in Ihrem Unternehmen Sinn macht? Wir analysieren Ihr Potenzial und zeigen klare Möglichkeiten auf.</p>
     </div>
+    <a href="#kontakt" class="service-card service-cta fade-up">
+      <h3>Ihr Use Case ist nicht dabei?</h3>
+      <p>Erzählen Sie uns, was Sie nervt. Wir finden heraus, was die KI davon übernehmen kann.</p>
+      <span class="cta-arrow">Kostenloses Erstgespräch →</span>
+    </a>
   </div>
 </section>
 
@@ -699,15 +755,15 @@
   <div class="section-header fade-up" style="text-align:center;">
     <div class="section-label">Live Demo</div>
     <h2 class="section-title">So funktioniert Automatisierung</h2>
-    <p class="section-sub" style="margin: 0 auto;">Sehen Sie in Echtzeit wie ein KI-Workflow eine Kundenanfrage verarbeitet — von Eingang bis Abschluss.</p>
+    <p class="section-sub" style="margin: 0 auto;">Sehen Sie in Echtzeit wie ein KI-Workflow eine Kundenanfrage verarbeitet, vom Eingang bis zum Abschluss.</p>
   </div>
   <div class="workflow-container">
 
     <div class="workflow-row">
       <div class="wf-node" id="wf1">
-        <div class="wf-node-icon purple">📩</div>
+        <div class="wf-node-icon green"><img src="assets/tools/whatsapp.svg" alt="" /></div>
         <div class="wf-node-text">
-          <strong>Anfrage eingeht</strong>
+          <strong>Anfrage geht ein</strong>
           <span>WhatsApp / Website</span>
         </div>
       </div>
@@ -717,7 +773,7 @@
 
     <div class="workflow-row">
       <div class="wf-node" id="wf2">
-        <div class="wf-node-icon blue">🧠</div>
+        <div class="wf-node-icon orange"><img src="assets/tools/claude.svg" alt="" /></div>
         <div class="wf-node-text">
           <strong>KI analysiert</strong>
           <span>Absicht erkennen</span>
@@ -729,7 +785,7 @@
 
     <div class="workflow-row" style="gap:1.5rem;">
       <div class="wf-node" id="wf3">
-        <div class="wf-node-icon green">💬</div>
+        <div class="wf-node-icon pink"><img src="assets/tools/gmail.svg" alt="" /></div>
         <div class="wf-node-text">
           <strong>Antwort gesendet</strong>
           <span>In Sekunden</span>
@@ -737,7 +793,7 @@
       </div>
       <div class="wf-arrow" id="wfa1">→</div>
       <div class="wf-node" id="wf4">
-        <div class="wf-node-icon orange">📋</div>
+        <div class="wf-node-icon orange"><img src="assets/tools/hubspot.svg" alt="" /></div>
         <div class="wf-node-text">
           <strong>CRM aktualisiert</strong>
           <span>Automatisch</span>
@@ -745,7 +801,7 @@
       </div>
       <div class="wf-arrow" id="wfa2">→</div>
       <div class="wf-node" id="wf5">
-        <div class="wf-node-icon pink">📅</div>
+        <div class="wf-node-icon blue"><img src="assets/tools/calendly.svg" alt="" /></div>
         <div class="wf-node-text">
           <strong>Termin gebucht</strong>
           <span>Kalender sync</span>
@@ -769,28 +825,28 @@
       <p class="section-sub fade-up" style="margin-bottom:2.5rem;">Wir sind kein klassisches IT-Unternehmen. Wir denken wie Unternehmer und bauen Lösungen, die wirklich funktionieren.</p>
       <ul class="why-list">
         <li class="why-item fade-up">
-          <div class="why-icon">🎯</div>
+          <div class="why-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
           <div class="why-text">
             <h4>Maßgeschneiderte Lösungen</h4>
             <p>Keine Templates. Jede Lösung wird individuell auf Ihre Prozesse zugeschnitten.</p>
           </div>
         </li>
         <li class="why-item fade-up">
-          <div class="why-icon">🚀</div>
+          <div class="why-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
           <div class="why-text">
             <h4>Schnelle Umsetzung</h4>
-            <p>Von der Idee zur fertigen Automatisierung — effizient und ohne lange Wartezeiten.</p>
+            <p>Von der Idee zur fertigen Automatisierung: effizient und ohne lange Wartezeiten.</p>
           </div>
         </li>
         <li class="why-item fade-up">
-          <div class="why-icon">🤝</div>
+          <div class="why-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div class="why-text">
             <h4>Persönliche Betreuung</h4>
-            <p>Direkter Kontakt, keine Zwischenstellen. Sie sprechen immer mit dem Experten.</p>
+            <p>Direkter Kontakt, keine Zwischenstellen. Sie sprechen immer direkt mit der Expertin.</p>
           </div>
         </li>
         <li class="why-item fade-up">
-          <div class="why-icon">🔒</div>
+          <div class="why-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
           <div class="why-text">
             <h4>Made in Germany</h4>
             <p>Datenschutz und DSGVO-Konformität sind für uns selbstverständlich.</p>
@@ -822,7 +878,7 @@
   <div class="section-header fade-up">
     <div class="section-label">Unser Prozess</div>
     <h2 class="section-title">So arbeiten wir</h2>
-    <p class="section-sub">Transparent, strukturiert und zielorientiert — von Anfang bis Ende.</p>
+    <p class="section-sub">Transparent, strukturiert und zielorientiert. Von Anfang bis Ende.</p>
   </div>
   <div class="process-steps">
     <div class="step fade-up">
@@ -838,7 +894,7 @@
     <div class="step fade-up">
       <div class="step-num">03</div>
       <h3>Umsetzung</h3>
-      <p>Wir bauen die Lösung — schnell, sauber und genau nach Ihren Anforderungen.</p>
+      <p>Wir bauen die Lösung: schnell, sauber und genau nach Ihren Anforderungen.</p>
     </div>
     <div class="step fade-up">
       <div class="step-num">04</div>
@@ -854,24 +910,24 @@
     <div>
       <div class="section-label fade-up">Kontakt</div>
       <h2 class="section-title fade-up">Bereit durchzustarten?</h2>
-      <p class="section-sub fade-up" style="margin-bottom:2.5rem;">Schreiben Sie uns, rufen Sie an oder schicken Sie eine WhatsApp — wir melden uns schnell zurück.</p>
+      <p class="section-sub fade-up" style="margin-bottom:2.5rem;">Schreiben Sie uns, rufen Sie an oder schicken Sie eine WhatsApp. Wir melden uns schnell zurück.</p>
       <div class="contact-options">
         <a href="tel:+491711570350" class="contact-card fade-up">
-          <div class="contact-card-icon icon-phone">📞</div>
+          <div class="contact-card-icon icon-phone"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
           <div class="contact-card-text">
             <span>Telefon</span>
             <strong>+49 171 1570350</strong>
           </div>
         </a>
-        <a href="https://wa.me/491711570350" target="_blank" class="contact-card fade-up">
-          <div class="contact-card-icon icon-whatsapp">💬</div>
+        <a href="https://wa.me/491711570350" target="_blank" rel="noopener" class="contact-card fade-up">
+          <div class="contact-card-icon icon-whatsapp"><img src="assets/tools/whatsapp.svg" alt="" /></div>
           <div class="contact-card-text">
             <span>WhatsApp</span>
             <strong>+49 171 1570350</strong>
           </div>
         </a>
         <a href="mailto:emine@meister-ai.de" class="contact-card fade-up">
-          <div class="contact-card-icon icon-email">✉️</div>
+          <div class="contact-card-icon icon-email"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
           <div class="contact-card-text">
             <span>E-Mail</span>
             <strong>emine@meister-ai.de</strong>
@@ -917,7 +973,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo">Meister<span style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">-AI</span></div>
+  <div class="logo">Meister<span>-AI</span></div>
   <p>© 2026 Meister-AI. Alle Rechte vorbehalten.</p>
   <div class="footer-links">
     <a href="impressum.html">Impressum</a>
@@ -929,7 +985,7 @@
 <div class="chat-widget">
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">
-      <div class="chat-avatar">🤖</div>
+      <div class="chat-avatar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
       <div class="chat-header-info">
         <strong>Meister-AI Assistent</strong>
         <span>● Online</span>
@@ -941,9 +997,9 @@
       <button class="chat-send" onclick="sendChat()">Senden</button>
     </div>
   </div>
-  <button class="chat-btn" id="chatBtn" onclick="toggleChat()">
-    <span class="chat-icon">💬</span>
-    <span class="chat-close">✕</span>
+  <button class="chat-btn" id="chatBtn" onclick="toggleChat()" aria-label="Chat öffnen">
+    <span class="chat-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>
+    <span class="chat-close"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
   </button>
 </div>
 
@@ -957,6 +1013,15 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ─── CARD SPOTLIGHT ───
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
 
   // ─── TYPEWRITER ───
   const words = ['Automatisiert.', 'Digitalisiert.', 'Skaliert.', 'Zukunftssicher.'];
@@ -989,13 +1054,13 @@
     document.getElementById('wfReplay').style.display = 'none';
 
     const steps = [
-      { node: 'wf1', connector: null, arrow: null, status: '📩 Neue Anfrage über WhatsApp eingetroffen...', delay: 400 },
+      { node: 'wf1', connector: null, arrow: null, status: 'Neue Anfrage über WhatsApp eingetroffen...', delay: 400 },
       { node: null, connector: 'wfc1', arrow: null, status: '', delay: 900 },
-      { node: 'wf2', connector: null, arrow: null, status: '🧠 KI analysiert die Anfrage...', delay: 1400 },
+      { node: 'wf2', connector: null, arrow: null, status: 'KI analysiert die Anfrage...', delay: 1400 },
       { node: null, connector: 'wfc2', arrow: null, status: '', delay: 2000 },
-      { node: 'wf3', connector: null, arrow: 'wfa1', status: '💬 Antwort in 1.2 Sek. gesendet!', delay: 2600 },
-      { node: 'wf4', connector: null, arrow: 'wfa2', status: '📋 CRM wurde automatisch aktualisiert...', delay: 3300 },
-      { node: 'wf5', connector: null, arrow: null, status: '📅 Termin gebucht — alles erledigt!', delay: 4000 },
+      { node: 'wf3', connector: null, arrow: 'wfa1', status: 'Antwort in 1.2 Sek. gesendet!', delay: 2600 },
+      { node: 'wf4', connector: null, arrow: 'wfa2', status: 'CRM wurde automatisch aktualisiert...', delay: 3300 },
+      { node: 'wf5', connector: null, arrow: null, status: 'Termin gebucht, alles erledigt!', delay: 4000 },
     ];
 
     steps.forEach(s => {
@@ -1022,7 +1087,7 @@
     setTimeout(() => {
       document.getElementById('wf5').classList.remove('active');
       document.getElementById('wf5').classList.add('done');
-      document.getElementById('wfStatus').innerHTML = '<span style="color:#4ade80">✓ Workflow abgeschlossen — vollautomatisch in unter 5 Sekunden.</span>';
+      document.getElementById('wfStatus').innerHTML = '<span style="color:#4ade80">✓ Workflow abgeschlossen: vollautomatisch in unter 5 Sekunden.</span>';
       document.getElementById('wfReplay').style.display = 'inline-flex';
     }, 4800);
   }
@@ -1081,12 +1146,12 @@
           btn.disabled = false;
         }, 3000);
       } else {
-        btn.textContent = 'Fehler — bitte erneut versuchen';
+        btn.textContent = 'Fehler, bitte erneut versuchen';
         btn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
         btn.disabled = false;
       }
     } catch {
-      btn.textContent = 'Fehler — bitte erneut versuchen';
+      btn.textContent = 'Fehler, bitte erneut versuchen';
       btn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
       btn.disabled = false;
     }
@@ -1099,7 +1164,7 @@
   const botConvo = [
     { role: 'bot', text: 'Hallo! 👋 Ich bin der Meister-AI Assistent. Wie kann ich Ihnen helfen?' },
     { role: 'user', text: 'Was kostet ein Chatbot?' },
-    { role: 'bot', text: 'Gute Frage! Der Preis hängt von Ihren Anforderungen ab. Grundsätzlich starten einfache Chatbots ab wenigen hundert Euro — komplexere Lösungen entsprechend mehr. Am besten besprechen wir es kurz persönlich!' },
+    { role: 'bot', text: 'Gute Frage! Der Preis hängt von Ihren Anforderungen ab. Grundsätzlich starten einfache Chatbots ab wenigen hundert Euro, komplexere Lösungen entsprechend mehr. Am besten besprechen wir es kurz persönlich!' },
     { role: 'bot', text: 'Soll ich einen Termin für ein kostenloses Erstgespräch vorschlagen? 📅' },
   ];
 

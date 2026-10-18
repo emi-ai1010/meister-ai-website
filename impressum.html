@@ -6,7 +6,7 @@
   <title>Impressum | Meister-AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -14,10 +14,10 @@
       --border: rgba(255,255,255,0.07);
       --text: #f0f0f0; --text-muted: #888;
       --accent: #6c63ff; --accent-2: #a78bfa;
-      --gradient: linear-gradient(135deg, #6c63ff, #a78bfa);
+      --gradient: linear-gradient(135deg, #6c63ff, #a78bfa 55%, #f472b6);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
 
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -59,6 +59,9 @@
     a { color: var(--accent-2); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    h1, .logo { font-family: 'Sora', sans-serif; }
+    .rights-list { color: var(--text-muted); font-size: 0.95rem; margin: 0 0 0.6rem 1.2rem; }
+    .rights-list li::marker { color: var(--accent-2); }
     .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 
     footer {
