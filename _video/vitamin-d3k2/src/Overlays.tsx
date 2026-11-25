@@ -52,9 +52,9 @@ export const Pill: React.FC<{ children: React.ReactNode; bg?: string; c?: string
 );
 
 // Großes Wort, das reinknallt (fällt groß rein, Feder)
-export const Slam: React.FC<{ t: number; at: number; children: React.ReactNode; size: number; color?: string; y: number; outAt?: number; rot?: number }> = ({ t, at, children, size, color = C.peachDeep, y, outAt = 999, rot = -3 }) => {
+export const Slam: React.FC<{ t: number; at: number; children: React.ReactNode; size: number; color?: string; y: number; outAt?: number; rot?: number; instant?: boolean }> = ({ t, at, children, size, color = C.peachDeep, y, outAt = 999, rot = -3, instant = false }) => {
   if (t < at) return null;
-  const p = sp(t, at, 18, 140);
+  const p = instant ? 1 : sp(t, at, 18, 140);
   const o = lin(t, outAt, outAt + 0.3);
   const sc = 1.25 - 0.25 * p;
   return (

@@ -42,6 +42,7 @@ const T = {
   natur: at("gummy", "natürlich"),
   cta: START.cta,
   guide: at("cta", "Guide"),
+  sonneCta: at("cta", "SONNE"),
 };
 // Übergang Wiese -> Küche: Zoom durchs Fenster
 const PAN_STOP = 900, PAN_END = 1900;
@@ -58,9 +59,8 @@ const k = (t: number, x: number, g: number, s: number, mood: Mood, hops?: number
 const SG = 0.72; // Größe Sunny
 const KS = 0.6; // Größe Kay
 const SUNNY: K[] = [
-  k(0, 540, 1900, SG, "surprised", 0),
-  k(T.rise, 540, GROUND, SG, "surprised", 1),
-  k(T.rise + 0.8, 540, GROUND, SG, "happy"),
+  k(0, 540, GROUND, SG, "surprised", 0),
+  k(0.6, 540, GROUND, SG, "happy"),
   k(T.halbe, 470, GROUND, SG, "worried", 1),
   k(T.sunny, 470, GROUND, SG, "walk"),
   k(T.sonne, 470, GROUND, SG, "happy"),
@@ -80,9 +80,14 @@ const SUNNY: K[] = [
   k(T.team, 300, GROUND, SG, "idle"),
   k(T.dream, 380, GROUND, SG, "cheer", 1),
   k(T.tipp, 300, GROUND, SG, "think", 1),
+  k(T.fett, 300, GROUND, SG, "happy"),
+  k(T.fett + 0.6, 300, GROUND, SG, "think"),
   k(T.gummy, 220, GROUND, SG, "happy", 1),
-  k(T.gummy + 0.9, 220, GROUND, SG, "idle"),
+  k(T.zucker, 220, GROUND, SG, "happy"),
+  k(T.natur, 220, GROUND, SG, "cheer"),
   k(T.cta, 260, GROUND, SG, "wave"),
+  k(T.sonneCta, 260, GROUND, SG, "cheer"),
+  k(T.guide, 260, GROUND, SG, "wave"),
 ];
 const KAY: K[] = [
   k(0, 790, -500, 0, "idle", 0),
@@ -93,9 +98,13 @@ const KAY: K[] = [
   k(T.vitK + 1.0, 790, GROUND, KS, "idle"),
   k(T.dream, 700, GROUND, KS, "cheer", 1),
   k(T.tipp, 790, GROUND, KS, "idle", 1),
+  k(T.mahl, 790, GROUND, KS, "happy"),
   k(T.gummy, 860, GROUND, KS, "happy", 1),
-  k(T.gummy + 0.9, 860, GROUND, KS, "idle"),
+  k(T.kuenst, 860, GROUND, KS, "happy"),
+  k(T.natur, 860, GROUND, KS, "cheer"),
   k(T.cta, 800, GROUND, KS, "wave"),
+  k(T.sonneCta + 0.1, 800, GROUND, KS, "cheer"),
+  k(T.guide, 800, GROUND, KS, "wave"),
 ];
 
 const direct = (keys: K[], t: number) => {
@@ -339,7 +348,7 @@ export const Reel: React.FC = () => {
       </AbsoluteFill>
 
       {/* ---------- 1 Hook ---------- */}
-      <Slam t={t} at={T.ohne} size={150} y={360} outAt={T.sunny - 0.15}>D3 ohne K2?</Slam>
+      <Slam t={t} at={0} size={150} y={360} outAt={T.sunny - 0.15} instant>D3 ohne K2?</Slam>
       <Fly t={t} inAt={T.halbe} outAt={T.sunny - 0.25} style={{ left: 140, width: 800, top: 590, display: "flex", justifyContent: "center" }}>
         <Pill bg={C.pinkDeep} c="#fff" fs={58}>= nur das halbe Team</Pill>
       </Fly>
@@ -430,7 +439,7 @@ export const Reel: React.FC = () => {
         <div style={{ position: "relative" }}>
           <Card style={{ textAlign: "center", padding: "34px 30px" }}>
             <div style={{ fontSize: 46, fontWeight: 800, color: C.mid }}>Kommentier</div>
-            <div style={{ display: "inline-block", marginTop: 8, padding: "6px 46px", borderRadius: 999, background: `linear-gradient(160deg, ${C.peach}, ${C.peachDeep})`, fontFamily: HEAD, fontWeight: 700, fontSize: 120, color: "#fff", transform: `scale(${1 + Math.sin(t * 6) * 0.03})`, boxShadow: "0 20px 34px -14px rgba(240,138,85,0.8)" }}>SONNE</div>
+            <div style={{ display: "inline-block", marginTop: 8, padding: "6px 46px", borderRadius: 999, background: `linear-gradient(160deg, ${C.peach}, ${C.peachDeep})`, fontFamily: HEAD, fontWeight: 700, fontSize: 120, color: "#fff", opacity: t < T.sonneCta - 0.05 ? 0.25 : 1, transform: `scale(${t < T.sonneCta - 0.05 ? 0.8 : 1.6 - 0.6 * sp(t, T.sonneCta - 0.05, 9, 230)}) rotate(${t < T.sonneCta ? 0 : -3 * (1 - sp(t, T.sonneCta, 8, 160))}deg)`, boxShadow: "0 20px 34px -14px rgba(240,138,85,0.8)" }}>SONNE</div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, marginTop: 22, ...pop(sp(t, T.guide, 12, 200), 0.7, 20) }}>
               <Badge n="gift" bg={C.pink} s={70} />
               <div style={{ fontSize: 40, fontWeight: 900 }}>Gratis-Guide: D3 + K2</div>
@@ -439,6 +448,7 @@ export const Reel: React.FC = () => {
           <svg width={90} height={60} viewBox="0 0 90 60" style={{ position: "absolute", left: 120, bottom: -46 }}><path d="M0,0 L90,0 L20,60 Z" fill="#FFFFFF" /></svg>
         </div>
       </Fly>
+      <Confetti t={t} at={T.sonneCta} />
       {t >= T.cta && (
         <div style={{ position: "absolute", left: 140, width: 800, top: 258, textAlign: "center", fontSize: 22, fontWeight: 700, color: C.mid, opacity: lin(t, T.cta + 0.5, T.cta + 1) }}>
           Nahrungsergänzungsmittel ersetzen keine ausgewogene Ernährung und gesunde Lebensweise.

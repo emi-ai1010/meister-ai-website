@@ -69,4 +69,4 @@ export const at = (seg: string, word: string, nth = 0): number => {
   return h ? h.s : START[seg];
 };
 export const END = WORDS[WORDS.length - 1].e;
-export const DURATION = END + 2.2;
+export const DURATION = END + 1.1;
