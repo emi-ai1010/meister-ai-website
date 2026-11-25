@@ -9,7 +9,7 @@ import { Meadow, Kitchen, GROUND, WINDOW } from "./World";
 import { Fly, Card, Pill, Slam, Confetti, Jar, GhostDrop, Badge, Ico } from "./Overlays";
 import { SEGS, WORDS, START, at, END, HAS_VOICE, Word } from "./script";
 
-export const HANDLE = "@ki.mit.emi";
+export const HANDLE = "@sonnen.vitamin";
 const ease = (p: number) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
 // ================= Zeitplan (alles hängt an Wort-Zeitstempeln) =================

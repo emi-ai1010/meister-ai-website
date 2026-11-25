@@ -130,7 +130,7 @@ Stil-Anhang für **jeden** Prompt (immer mit reinkopieren):
 - Alle 1–1,5 s etwas Neues: Schnitt, Zoom-Punch, neues Overlay
 - Musik: ruhig (Marimba/Piano), Lautstärke ca. 0,14 unter der Stimme, **keine** Einschlag-Sounds (Stil „Erklär“)
 - Stimme: −14 LUFS, Tempo 1,12×
-- Handle unten: @ki.mit.emi (oder Vytrition-Handle)
+- Handle unten: @sonnen.vitamin
 
 ## 7. Recht & Health Claims (nicht verhandelbar)
 - Nur **zugelassene EU-Health-Claims** (VO 1924/2006) verwenden, Formulierung „trägt zu … bei“:
