@@ -142,6 +142,6 @@ Stil-Anhang für **jeden** Prompt (immer mit reinkopieren):
 - Quelle für Okt–März: RKI, FAQ Vitamin D
 
 ## 8. Vorhandene Dateien (Projekt `_video/vitamin-d3k2/`)
-- `Fertig/01 Vitamin D3 K2 (Erklaer).mp4`: fertige Remotion-Version (Vorlage/Animatic für Timing und Bildideen)
+- `_video/Fertig/01 Vitamin D3 K2 (Erklaer).mp4`: fertige Remotion-Version (Vorlage/Animatic für Timing und Bildideen)
 - `public/audio/voice.wav`: Emis Stimme, bearbeitet · `src/words.json`: Wort-Zeitstempel für Untertitel
-- `Sunny-Kay-Referenz.png`: Referenzbild der Figuren
+- `_video/Fertig/Sunny-Kay-Referenz.png`: Referenzbild der Figuren
