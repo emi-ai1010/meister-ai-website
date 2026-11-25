@@ -164,7 +164,7 @@ const Stage: React.FC<{ t: number; width: number; height: number }> = ({ t, widt
   const su = animate(SUNNY, t, true);
   const ka = animate(KAY, t, false);
   const inKitchen = t >= ZOOM_B - 0.15;
-  const rays = inKitchen ? 0.85 : 1;
+  const rays = inKitchen ? 0.72 : 1;
   return (
     <ThreeCanvas width={width} height={height} camera={{ fov: 30, position: [0, 0, 15] }} gl={{ alpha: true, antialias: true }} shadows flat>
       <Lights />
@@ -200,8 +200,8 @@ const Row: React.FC<{ t: number; at: number; icon: string; bg: string; children:
   const p = sp(t, at, 12, 190);
   const on = t >= at;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 26, marginTop: 22, opacity: on ? Math.min(1, 0.25 + p) : 0.25, transform: `translateX(${(1 - p) * 40}px)` }}>
-      <div style={{ transform: `scale(${0.7 + 0.3 * p})` }}><Badge n={icon} bg={on ? bg : C.gray} s={84} /></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 24, marginTop: 16, opacity: on ? Math.min(1, 0.25 + p) : 0.25, transform: `translateX(${(1 - p) * 40}px)` }}>
+      <div style={{ transform: `scale(${0.7 + 0.3 * p})` }}><Badge n={icon} bg={on ? bg : C.gray} s={74} /></div>
       <div style={{ fontSize: 40, fontWeight: 800, lineHeight: 1.12, flex: 1 }}>{children}</div>
       <div style={{ width: 54, height: 54, borderRadius: 27, background: on ? C.sageDeep : "transparent", border: on ? "none" : `4px solid ${C.gray}`, display: "flex", alignItems: "center", justifyContent: "center", transform: `scale(${on ? 0.6 + 0.4 * sp(t, at + 0.15, 9, 260) : 1})` }}>{on && <Ico n="check" s={34} />}</div>
     </div>
@@ -343,7 +343,7 @@ export const Reel: React.FC = () => {
       <Fly t={t} inAt={T.halbe} outAt={T.sunny - 0.25} style={{ left: 140, width: 800, top: 590, display: "flex", justifyContent: "center" }}>
         <Pill bg={C.pinkDeep} c="#fff" fs={58}>= nur das halbe Team</Pill>
       </Fly>
-      <GhostDrop t={t} at={T.k2q} outAt={T.sunny - 0.2} x={790} y={GROUND} />
+      <GhostDrop t={t} at={T.k2q} outAt={T.sunny - 0.2} x={850} y={GROUND - 40} />
 
       {/* ---------- 2 Sunny auf der Wiese ---------- */}
       <NameTag t={t} at={T.sunny + 0.1} outAt={T.winter - 0.2} x={470} y={680} name="Sunny" sub="Vitamin D" bg={C.peachDeep} />
@@ -370,8 +370,8 @@ export const Reel: React.FC = () => {
       <Slam t={t} at={T.jump + 0.2} size={120} y={420} outAt={ZOOM_A - 0.1} color={C.peachDeep} rot={4}>Ab in die Küche!</Slam>
 
       {/* ---------- 5 D3 ---------- */}
-      <Fly t={t} inAt={T.d3 + 0.05} outAt={T.k2 - 0.2} style={{ left: 120, width: 840, top: 270 }}>
-        <Card style={{ padding: "30px 36px 34px" }}>
+      <Fly t={t} inAt={T.d3 + 0.05} outAt={T.k2 - 0.2} style={{ left: 120, width: 840, top: 250 }}>
+        <Card style={{ padding: "26px 34px 28px" }}>
           <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 56 }}><span style={{ color: C.peachDeep }}>Vitamin D3</span> trägt bei zu …</div>
           <Row t={t} at={T.calcium} icon="drop" bg={C.peach}>normaler Aufnahme von Calcium</Row>
           <Row t={t} at={T.knochen} icon="bone" bg={C.peach}>Erhaltung normaler Knochen</Row>
