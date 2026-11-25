@@ -31,6 +31,19 @@ const gummy = (c: string, sheen: string, glow = 0.18) => (
 );
 const INK = "#3A211C";
 
+// weiches Leuchten (radialer Verlauf) hinter Sunny
+let _glow: THREE.Texture | null = null;
+const glowTex = () => {
+  if (_glow) return _glow;
+  const c = document.createElement("canvas"); c.width = c.height = 256;
+  const g = c.getContext("2d")!;
+  const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  r.addColorStop(0, "rgba(255,226,180,0.95)"); r.addColorStop(0.5, "rgba(255,214,160,0.55)"); r.addColorStop(1, "rgba(255,214,160,0)");
+  g.fillStyle = r; g.fillRect(0, 0, 256, 256);
+  _glow = new THREE.CanvasTexture(c); _glow.colorSpace = THREE.SRGBColorSpace;
+  return _glow;
+};
+
 // Auf die Oberfläche setzen: Position (x,y) auf der Vorderseite, leicht nach außen gedreht
 const onSurface = (x: number, y: number, out = 0.0): { pos: [number, number, number]; rot: [number, number, number] } => {
   const r = rAt(y);
@@ -61,22 +74,24 @@ export const Drop: React.FC<{
         <group position={[0, 1.1, 0]}>
           <mesh geometry={geo} castShadow receiveShadow>{gummy(color, sheen, rays > 0.01 ? 0.32 : 0.2)}</mesh>
 
-          {/* Sonnenstrahlen-Kranz hinter dem Körper */}
+          {/* Sonnenstrahlen-Kranz: weiche, runde Strahlen + sanftes Leuchten */}
           {rays > 0.01 && (
-            <group position={[0, -0.18, -0.45]} scale={rays}>
+            <group position={[0, -0.18, -0.5]} scale={rays}>
               <mesh>
-                <circleGeometry args={[1.24, 64]} />
-                <meshBasicMaterial color="#FFE8C9" toneMapped={false} />
+                <circleGeometry args={[2.2, 64]} />
+                <meshBasicMaterial map={glowTex()} transparent depthWrite={false} toneMapped={false} />
               </mesh>
-              <group rotation={[0, 0, t * 0.45]}>
-                {Array.from({ length: 14 }).map((_, i) => {
-                  const a = (i / 14) * Math.PI * 2;
-                  const len = (i % 2 ? 0.3 : 0.44) * (1 + Math.sin(t * 5 + i * 1.7) * 0.12);
-                  const R = 1.3 + len / 2;
+              <group rotation={[0, 0, 0]} scale={1 + Math.sin(t * 2) * 0.02}>
+                {Array.from({ length: 16 }).map((_, i) => {
+                  const a = (i / 16) * Math.PI * 2;
+                  const len = i % 2 ? 0.27 : 0.36;
+                  const R = 1.18 + len * 0.55;
+                  const deg = (a * 180) / Math.PI;
+                  if (deg > 220 && deg < 320) return null; // unten (hinter den Füßen) keine Strahlen
                   return (
-                    <mesh key={i} position={[Math.cos(a) * R, Math.sin(a) * R, 0]} rotation={[0, 0, a - Math.PI / 2]} scale={[1, 1, 0.55]}>
-                      <coneGeometry args={[0.17, len, 24]} />
-                      <meshPhysicalMaterial color={i % 2 ? "#FFC77E" : "#FFB066"} roughness={0.35} clearcoat={1} emissive="#FFA24F" emissiveIntensity={0.45} />
+                    <mesh key={i} position={[Math.cos(a) * R, Math.sin(a) * R, 0]} rotation={[0, 0, a - Math.PI / 2]} scale={[0.17, len, 0.07]}>
+                      <sphereGeometry args={[1, 24, 16]} />
+                      <meshPhysicalMaterial color={i % 2 ? "#FFD08A" : "#FFBA6E"} roughness={0.35} clearcoat={1} emissive="#FFB060" emissiveIntensity={0.35} />
                     </mesh>
                   );
                 })}

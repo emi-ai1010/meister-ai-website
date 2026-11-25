@@ -20,11 +20,11 @@ export const Lights: React.FC = () => (
 );
 
 export const Portrait: React.FC = () => (
-  <AbsoluteFill style={{ background: "#FFF1E6" }}>
-    <ThreeCanvas width={1200} height={900} camera={{ fov: 30, position: [0, 0.3, 11] }} gl={{ alpha: true, antialias: true }} shadows flat>
+  <AbsoluteFill style={{ background: "linear-gradient(160deg, #FFE6D4 0%, #FDEBEF 100%)" }}>
+    <ThreeCanvas width={1200} height={900} camera={{ fov: 30, position: [0, 0.1, 9.2] }} gl={{ alpha: true, antialias: true }} shadows flat>
       <Lights />
-      <group position={[-1.5, 0, 0]}><Drop t={1} color={C.peach} colorDark={C.peachDeep} sheen="#FFE0C8" rays={1} face={{ mouth: 0.7 }} pose={{ armR: 0.9 }} /></group>
-      <group position={[1.7, -0.25, 0]} scale={0.78}><Drop t={1} color={C.pink} colorDark={C.pinkDeep} sheen="#FFE3EA" hat={1} face={{ worry: 0.6, brow: 0.5 }} pose={{ armL: 0.6 }} /></group>
+      <group position={[-1.25, 0, 0]}><Drop t={1} color={C.peach} colorDark={C.peachDeep} sheen="#FFE0C8" rays={1} face={{ mouth: 0.6, brow: 0.4 }} pose={{ armR: 0.9, ry: 0.15 }} /></group>
+      <group position={[1.45, -0.24, 0.3]} scale={0.78}><Drop t={1} color={C.pink} colorDark={C.pinkDeep} sheen="#FFE3EA" hat={1} face={{ mouth: 0.1, brow: 0.3 }} pose={{ armL: 0.9, ry: -0.15 }} /></group>
       <ContactShadows position={[0, -1.15, 0]} opacity={0.4} scale={10} blur={2.4} far={2} color="#7a4a3a" />
     </ThreeCanvas>
   </AbsoluteFill>

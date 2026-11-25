@@ -105,11 +105,11 @@ const direct = (keys: K[], t: number) => {
   const since = t - cur.t;
   const dist = Math.hypot(cur.x - prev.x, cur.g - prev.g);
   const hops = cur.hops ?? (dist > 5 ? Math.max(1, Math.round(dist / 200)) : 0);
-  const dur = hops === 0 ? 0 : Math.max(0.35, 0.3 * hops);
+  const dur = hops === 0 ? 0 : Math.max(0.5, 0.42 * hops);
   if (i > 0 && hops > 0 && since < dur) {
     const p = since / dur;
     const e = ease(p);
-    const lift = Math.abs(Math.sin(p * hops * Math.PI)) * (dist > 600 ? 260 : 130);
+    const lift = Math.abs(Math.sin(p * hops * Math.PI)) * (dist > 600 ? 200 : 80);
     return { x: prev.x + (cur.x - prev.x) * e, g: prev.g + (cur.g - prev.g) * e, s: prev.s + (cur.s - prev.s) * e, lift, mood: "air" as const, since, dir: Math.sign(cur.x - prev.x), land: -1 };
   }
   return { x: cur.x, g: cur.g, s: cur.s, lift: 0, mood: cur.mood, since: since - dur, dir: 0, land: since - dur };
@@ -120,37 +120,37 @@ const speaking = (t: number) => WORDS.some((w) => t >= w.s && t <= w.e);
 const animate = (keys: K[], t: number, talk: boolean) => {
   const d = direct(keys, t);
   const blink = (t % 3.3) > 3.17 ? 1 : 0;
-  const face: Face = { blink, brow: 0.2, worry: 0, mouth: 0.15, smile: 1, lookX: Math.sin(t * 1.1) * 0.5 };
-  const pose: Pose = { squash: 1 + Math.sin(t * 3) * 0.015, armL: 0.05, armR: 0.05, tilt: Math.sin(t * 1.6) * 0.04, ry: Math.sin(t * 0.8) * 0.18 };
+  const face: Face = { blink, brow: 0.2, worry: 0, mouth: 0.15, smile: 1, lookX: Math.sin(t * 0.6) * 0.3 };
+  const pose: Pose = { squash: 1 + Math.sin(t * 2) * 0.008, armL: 0.05, armR: 0.05, tilt: 0, ry: Math.sin(t * 0.5) * 0.06 };
   let lift = d.lift;
   // Landung: kurzes Plattdrücken
-  if (d.land >= 0 && d.land < 0.35) pose.squash = 1 - Math.exp(-d.land * 9) * Math.cos(d.land * 30) * 0.16;
+  if (d.land >= 0 && d.land < 0.35) pose.squash = 1 - Math.exp(-d.land * 10) * Math.cos(d.land * 20) * 0.07;
   const s = d.since;
   switch (d.mood) {
     case "air":
       pose.squash = 1.08; pose.armL = 0.7; pose.armR = 0.7; face.mouth = 0.7; face.brow = 0.7; pose.ry = d.dir * 0.4; break;
     case "happy": {
-      const hop = Math.abs(Math.sin(s * 7)) * Math.max(0, 1 - s / 2.2);
-      lift += hop * 70; face.mouth = 0.6; face.brow = 0.6; pose.armL = 0.45; pose.armR = 0.45; break;
+      const hop = s < 0.45 ? Math.sin((s / 0.45) * Math.PI) : 0;
+      lift += hop * 45; face.mouth = 0.6; face.brow = 0.6; pose.armL = 0.45; pose.armR = 0.45; break;
     }
     case "walk": {
-      const hop = Math.abs(Math.sin(s * 6.5));
-      lift += hop * 90; pose.squash = hop < 0.2 ? 0.9 : 1.04; pose.ry = 0.45; face.mouth = 0.45; face.lookX = 0.8; pose.armL = 0.3 + hop * 0.3; pose.armR = 0.3 + hop * 0.3; break;
+      const hop = Math.abs(Math.sin(s * 3.6));
+      lift += hop * 55; pose.squash = 1; pose.ry = 0.35; face.mouth = 0.45; face.lookX = 0.8; pose.armL = 0.3; pose.armR = 0.3; break;
     }
     case "worried":
-      face.worry = 1; face.brow = -0.3; face.mouth = 0.1; face.smile = -1; pose.tilt = Math.sin(t * 30) * 0.04 * Math.max(0.3, 1 - s); pose.armL = 0; pose.armR = 0; break;
+      face.worry = 1; face.brow = -0.3; face.mouth = 0.1; face.smile = -1; pose.tilt = Math.sin(t * 18) * 0.015 * Math.max(0, 1 - s); pose.armL = 0; pose.armR = 0; break;
     case "surprised":
       face.brow = 1; face.mouth = 0.9; pose.armL = 0.6; pose.armR = 0.6; break;
     case "wave":
-      pose.armR = 1.05 + Math.sin(s * 11) * 0.25; face.mouth = 0.6; face.brow = 0.5; break;
+      pose.armR = 1.0 + Math.sin(s * 5) * 0.18; face.mouth = 0.6; face.brow = 0.5; break;
     case "cheer": {
-      const hop = Math.abs(Math.sin(s * 8)) * Math.max(0, 1 - s / 2.5);
-      lift += hop * 110; pose.armL = 1.15 + Math.sin(s * 16) * 0.1; pose.armR = 1.15 - Math.sin(s * 16) * 0.1; face.mouth = 1; face.brow = 0.9; break;
+      const hop = s < 1.2 ? Math.abs(Math.sin(s * 5.2)) * (1 - s / 1.2) : 0;
+      lift += hop * 70; pose.armL = 1.1; pose.armR = 1.1; face.mouth = 1; face.brow = 0.9; break;
     }
     case "think":
       face.worry = 0.4; face.brow = 0.5; face.lookY = 1; face.lookX = 0.8; pose.armR = 0.75; pose.tilt = 0.08; break;
   }
-  if (talk && speaking(t) && d.mood !== "air") face.mouth = Math.max(face.mouth ?? 0, 0.3 + Math.abs(Math.sin(t * 19)) * 0.5);
+  if (talk && speaking(t) && d.mood !== "air") face.mouth = Math.max(face.mouth ?? 0, 0.3 + Math.abs(Math.sin(t * 9)) * 0.25);
   return { ...d, face, pose, lift };
 };
 
@@ -317,9 +317,9 @@ export const Reel: React.FC = () => {
   const cuts = SEGS.map((g) => START[g.id]).filter((c) => c > 0);
   const last = [...cuts].reverse().find((c) => t >= c);
   const kp = last === undefined ? 1 : Math.min(1, (t - last) / 0.3);
-  const punch = 1 + 0.05 * (1 - kp) * (1 - kp);
+  const punch = 1;
   // sanfte Kamerafahrt in der Küche
-  const push = showKitchen ? 1 + 0.02 * Math.sin((t - ZOOM_A) * 0.6) : 1;
+  const push = 1;
 
   return (
     <AbsoluteFill style={{ fontFamily: FONT, background: C.cream, overflow: "hidden" }}>

@@ -24,7 +24,7 @@ const Cloud: React.FC<{ x: number; y: number; s: number; c?: string }> = ({ x, y
 );
 
 const Flower: React.FC<{ x: number; y: number; s: number; c: string; t: number; ph: number }> = ({ x, y, s, c, t, ph }) => (
-  <g transform={`translate(${x},${y}) rotate(${Math.sin(t * 2 + ph) * 6}) scale(${s})`}>
+  <g transform={`translate(${x},${y}) rotate(${Math.sin(t * 1.2 + ph) * 3}) scale(${s})`}>
     <path d="M0,0 Q4,22 0,46" stroke="#6E9E5A" strokeWidth={4} fill="none" />
     {[0, 1, 2, 3, 4].map((i) => {
       const a = (i / 5) * Math.PI * 2;
@@ -37,7 +37,7 @@ const Flower: React.FC<{ x: number; y: number; s: number; c: string; t: number; 
 export const SunDisc: React.FC<{ x: number; y: number; t: number; r?: number }> = ({ x, y, t, r = 110 }) => (
   <g transform={`translate(${x},${y})`}>
     <circle r={r * 2.4} fill="url(#sunGlow)" />
-    <g transform={`rotate(${t * 12})`}>
+    <g transform={`rotate(${t * 4})`}>
       {Array.from({ length: 12 }).map((_, i) => (
         <rect key={i} x={-9} y={-(r + 58)} width={18} height={38} rx={9} fill="#FFC47A" transform={`rotate(${i * 30})`} />
       ))}
@@ -127,9 +127,9 @@ export const Meadow: React.FC<{ t: number; pan: number; gloom: number }> = ({ t,
             <Cloud x={230 + (1 - gloom) * -500} y={380} s={1.9} c="#9AA1AE" />
             <Cloud x={720 + (1 - gloom) * 500} y={330} s={1.6} c="#A9AFBA" />
             <Cloud x={470} y={250 - (1 - gloom) * 300} s={1.4} c="#B7BCC5" />
-            {Array.from({ length: 60 }).map((_, i) => {
-              const x = (random(`rx${i}`) * 1200 + t * 60) % 1200 - 60;
-              const y = (random(`ry${i}`) * 1900 + t * 900) % 1900;
+            {Array.from({ length: 30 }).map((_, i) => {
+              const x = (random(`rx${i}`) * 1200 + t * 30) % 1200 - 60;
+              const y = (random(`ry${i}`) * 1900 + t * 420) % 1900;
               return <line key={i} x1={x} y1={y} x2={x - 8} y2={y + 34} stroke="#FFFFFF" strokeOpacity={0.55} strokeWidth={4} strokeLinecap="round" />;
             })}
           </g>

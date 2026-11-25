@@ -32,10 +32,10 @@ export const Badge: React.FC<{ n: string; bg: string; s?: number }> = ({ n, bg, 
 // ---------- Karte mit Ein- und Ausflug (Wisch-Übergang mit Unschärfe) ----------
 export const Fly: React.FC<{ t: number; inAt: number; outAt: number; children: React.ReactNode; style?: React.CSSProperties; from?: number }> = ({ t, inAt, outAt, children, style, from = 0.6 }) => {
   if (t < inAt - 0.01 || t > outAt + 0.4) return null;
-  const p = sp(t, inAt, 12, 180);
-  const o = lin(t, outAt, outAt + 0.3);
+  const p = sp(t, inAt, 20, 120);
+  const o = lin(t, outAt, outAt + 0.35);
   return (
-    <div style={{ position: "absolute", ...style, ...pop(p, from, 60), ...(o > 0 ? { transform: `translateX(${-o * 1100}px) scale(${1 - o * 0.1}) rotate(${-o * 6}deg)`, filter: `blur(${o * 14}px)`, opacity: 1 - o * 0.6 } : {}) }}>
+    <div style={{ position: "absolute", ...style, ...pop(p, 0.92, 30), ...(o > 0 ? { transform: `translateY(${-o * 30}px)`, opacity: 1 - o } : {}) }}>
       {children}
     </div>
   );
@@ -54,11 +54,11 @@ export const Pill: React.FC<{ children: React.ReactNode; bg?: string; c?: string
 // Großes Wort, das reinknallt (fällt groß rein, Feder)
 export const Slam: React.FC<{ t: number; at: number; children: React.ReactNode; size: number; color?: string; y: number; outAt?: number; rot?: number }> = ({ t, at, children, size, color = C.peachDeep, y, outAt = 999, rot = -3 }) => {
   if (t < at) return null;
-  const p = sp(t, at, 11, 210);
-  const o = lin(t, outAt, outAt + 0.25);
-  const sc = 2.2 - 1.2 * p;
+  const p = sp(t, at, 18, 140);
+  const o = lin(t, outAt, outAt + 0.3);
+  const sc = 1.25 - 0.25 * p;
   return (
-    <div style={{ position: "absolute", left: 60, width: 880, top: y, display: "flex", justifyContent: "center", opacity: Math.min(1, p * 2) * (1 - o), transform: `scale(${sc * (1 - o * 0.3)}) rotate(${rot * p}deg)` }}>
+    <div style={{ position: "absolute", left: 60, width: 880, top: y, display: "flex", justifyContent: "center", opacity: Math.min(1, p * 2) * (1 - o), transform: `scale(${sc}) rotate(${rot * 0.5 * p}deg)` }}>
       <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: size, color, whiteSpace: "nowrap", letterSpacing: -size * 0.01, lineHeight: 1, WebkitTextStroke: `${size * 0.06}px #FFFFFF`, paintOrder: "stroke fill", filter: "drop-shadow(0 14px 18px rgba(170,80,50,0.35))" }}>{children}</div>
     </div>
   );
@@ -70,7 +70,7 @@ export const Confetti: React.FC<{ t: number; at: number }> = ({ t, at }) => {
   const k = t - at;
   return (
     <>
-      {Array.from({ length: 70 }).map((_, i) => {
+      {Array.from({ length: 36 }).map((_, i) => {
         const a = random(`ca${i}`) * Math.PI - Math.PI; // nach oben
         const v = 900 + random(`cv${i}`) * 900;
         const x = 540 + Math.cos(a) * v * k;
@@ -119,7 +119,7 @@ export const GhostDrop: React.FC<{ t: number; at: number; outAt: number; x: numb
   const p = sp(t, at, 10, 200);
   const o = lin(t, outAt, outAt + 0.25);
   return (
-    <div style={{ position: "absolute", left: x - 110, top: y - 270, width: 220, height: 270, opacity: (1 - o) * Math.min(1, p * 2), transform: `scale(${0.6 + 0.4 * p}) rotate(${Math.sin(t * 5) * 4}deg)`, transformOrigin: "50% 100%" }}>
+    <div style={{ position: "absolute", left: x - 110, top: y - 270, width: 220, height: 270, opacity: (1 - o) * Math.min(1, p * 2), transform: `scale(${0.85 + 0.15 * p})`, transformOrigin: "50% 100%" }}>
       <svg width={220} height={270} viewBox="0 0 220 270">
         <path d="M110,12 C150,70 196,120 196,170 A86,86 0 0 1 24,170 C24,120 70,70 110,12 Z" fill="rgba(255,255,255,0.55)" stroke={C.pinkDeep} strokeWidth={7} strokeDasharray="18 14" />
         <text x={110} y={200} textAnchor="middle" fontFamily={HEAD} fontWeight={700} fontSize={64} fill={C.pinkDeep}>K2?</text>
