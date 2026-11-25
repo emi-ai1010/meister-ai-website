@@ -1,12 +1,17 @@
-import { loadFont as loadFredoka } from "@remotion/google-fonts/Fredoka";
-import { loadFont as loadNunito } from "@remotion/google-fonts/Nunito";
-import { spring, interpolate, Easing } from "remotion";
+import { spring, interpolate, Easing, staticFile, delayRender, continueRender } from "remotion";
 
-const fredoka = loadFredoka("normal", { weights: ["500", "600", "700"], subsets: ["latin"] });
-const nunito = loadNunito("normal", { weights: ["600", "700", "800", "900"], subsets: ["latin"] });
+// Schriften lokal (public/fonts) – kein Internet beim Rendern nötig
+const loadLocal = (family: string, file: string, weights: string) => {
+  if (typeof document === "undefined") return;
+  const h = delayRender(`font ${family}`);
+  const f = new FontFace(family, `url(${staticFile(`fonts/${file}`)}) format("woff2")`, { weight: weights });
+  f.load().then((ff) => { document.fonts.add(ff); continueRender(h); }).catch(() => continueRender(h));
+};
+loadLocal("Fredoka", "Fredoka.woff2", "300 700");
+loadLocal("Nunito", "Nunito.woff2", "200 1000");
 
-export const HEAD = fredoka.fontFamily; // runde, freundliche Überschriften
-export const FONT = nunito.fontFamily; // Fließtext, Untertitel
+export const HEAD = "Fredoka, sans-serif"; // runde, freundliche Überschriften
+export const FONT = "Nunito, sans-serif"; // Fließtext, Untertitel
 
 // ---------- Markenfarben: Pfirsich-Orange + Rosa ----------
 export const C = {
