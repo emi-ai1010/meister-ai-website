@@ -1,0 +1,21 @@
+{
+ "replace": {
+  "Cote": "Code",
+  "einfach,": "einfach:",
+  "nur,": "nur:",
+  "Orange": "orange",
+  "by": "bei",
+  "brauchst.": "brauchst:",
+  "Prompt,": "Prompt:",
+  "Morgenanruf": "Morgen-Anruf",
+  "Kit.": "Kit:",
+  "Morgenanruf.": "Morgen-Anruf!"
+ },
+ "replace_after": [
+  [
+   "Wort",
+   "Anruf",
+   "ANRUF,"
+  ]
+ ]
+}
